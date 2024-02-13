@@ -1,0 +1,189 @@
+AKS test
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+What kind of disks are supported for Windows-based nodes?
+...
+Azure disks and Azure files mounted as New Technology File System (NTFS) volumes
+------------------------------------------------------------------
+
+Which authentication method provides the easiest and most centralized and secure way of integrating AKS and ACR?
+....
+     AD Service Principal
+------------------------------------------------------------------
+In a local directory named app, you have the source code for a Node.js application and a Dockerfile with the following content:
+
+FROM node:12-alpine
+RUN apk add --no-cache python g++ make
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+Both the source code and the Dockerfile have been tested and verified to be working. You run the following command:
+
+docker build -t myapp app
+
+....
+A container image with the tag myapp is built using the source code in the app directory. 
+
+
+-----------------------------------------------------------------
+You are trying to use NetApp Files as a NFS mountpoint for your AKS pods and when trying to create a pod with a VolumeMount of type NFS you keep getting an error that the NetApp NFS resource provider isn't a valid resource and needs to be registered.
+
+How can you fix this issue?
+...
+
+Register the Microsoft.NetApp resource provider with the command:
+
+az provider register --namespace Microsoft.NetApp --wait
+
+-----------------------------------------------------------------
+Your company has a large AKS environment with several clusters deployed to different Azure regions. The development team is also geographically distributed, each working within a specific Azure region. To minimize the local dev machine setup for developers, your company has decided to use Azure Dev Spaces for AKS. 
+
+As an Azure admin, you first set up the proper access for your development team and then email all team members with instructions to set up Azure Dev Spaces. However, you receive different replies from different teams, some saying that they were able to successfully set up Azure Dev Spaces, while some are saying that they were not. What is a possible explanation?
+...
+Azure Dev Spaces is a feature only available in a few of the Azure regions where your company has AKS clusters.
+
+-----------------------------------------------------------------
+
+You are attempting to enable geo-replication for container images in your Azure Container Registry (ACR). In the Azure Portal you navigate to the registry Replications blade, but the Add button is grayed out and the feature doesn't seem to be available. What action could resolve this issue?
+...
+Upgrade the registry's SKU from either Basic or Standard to Premium.
+
+
+----------------------------------------------------------------
+
+Your company's security team wants you to secure access to AKS so that only authorized Azure Active Directory groups can access the API. What would you do to satisfy this requirement
+...
+Integrate AKS with Azure Active Directory role-based access control (RBAC) to control access to the API Server. 
+
+-----------------------------------------------------------------
+
+You deploy a web application to an AKS cluster using a YAML file with the following content:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: cont1
+          image: myrepo/myapp:1.0.0
+          ports:
+            - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: my-app
+You open a browser and navigate to the IP address associated with my-service , but the application is not loading. What is a possible explanation?
+...
+
+The service's targetPort value doesn't match the value of the containerPort field.
+
+-----------------------------------------------------------------
+
+You’re trying to deploy a pod in AKS using a container image hosted in Azure Container Registry (ACR). Your pod fails to start with the error code ImagePullBackOff. You verified that you typed the ACR hostname and container image name correctly in the container’s spec. What is a possible explanation for this behavior?  
+...
+
+The service's targetPort value doesn't match the value of the containerPort field.
+
+
+-----------------------------------------------------------------
+Which Kubernetes cluster components are managed by Azure in AKS?
+...
+API server, scheduler, etcd, controller manager
+
+-----------------------------------------------------------------
+
+What parameter is required when using the Azure CLI to create an AKS cluster to signal that the cluster is to be provisioned as private?
+...
+--enable-private-cluster 
+
+-----------------------------------------------------------------
+
+When deploying a new AKS cluster using Azure CLI, what happens if an existing virtual network is not specified?
+...
+The cluster is deployed to a new virtual network that is automatically created.
+
+-----------------------------------------------------------------
+
+Which command deploys an application to AKS?
+...
+kubectl apply -f manifest.yml 
+
+-----------------------------------------------------------------
+
+You currently have an AKS cluster with a single Linux-based node pool. You've been tasked with deploying a new workload that consists of a Windows Server container. The development team has already built the image and prepared the manifest files. 
+
+What should be your first step to deploy the Windows Server application to the cluster?
+...
+Create a new node pool with the --os-type Windows option to support the new Windows Server container
+
+-----------------------------------------------------------------
+
+What is the most cost-effective solution to protect an AKS cluster from the loss of an entire Azure data center?
+...
+Deploying the cluster across availability zones
+
+-----------------------------------------------------------------
+Which Azure CLI command can be used to scale a user node pool to zero?
+...
+az aks nodepool scale
+
+-----------------------------------------------------------------
+You have an existing AKS cluster named ExistingAKSCluster.
+
+How would you enable monitoring to troubleshoot AKS issues via the Azure CLI?
+...
+az aks enable-addons -a monitoring -n ExistingAKSCluster -g AKSResourceGroup
+
+-----------------------------------------------------------------
+
+You have provisioned an ACR and AKS cluster using the Azure CLI as follows, but you find that AKS cannot pull published images from the ACR instance. How can you fix this?
+
+# set this to the name of your Azure Container Registry. It must be globally unique MYACR=myContainerRegistry
+ 
+
+# Run the following line to create an Azure Container Registry if you do not already have one
+az acr create -n $MYACR -g myContainerRegistryResourceGroup --sku basic 
+ 
+
+# Create an AKS cluster 
+az aks create -n myAKSCluster -g myResourceGroup --generate-ssh-keys
+...
+
+az aks update -n myAKSCluster -g myResourceGroup --attach-acr $MYACR
+
+-----------------------------------------------------------------
+
+An Azure admin wants to enable an AKS cluster to scale out or in automatically based on resource utilization, but also ensure there are always at least two nodes running at any given time. 
+
+To avoid high costs, they prefer to not go over the limit of six nodes. They have an existing cluster named myAKSCluster in the resource group myAKSRg, currently running with a single node pool containing a single node. Which Azure CLI command should they use to achieve this?
+...
+az aks update \
+  --resource-group myAKSRg \
+  --name myAKSCluster \
+  --enable-cluster-autoscaler \
+  --min-count 2 \
+  --max-count 6
+
+-----------------------------------------------------------------
+
+
+
+

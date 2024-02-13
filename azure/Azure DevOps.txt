@@ -1,0 +1,12 @@
+Azure DevOps
+
+url for azure devops - https://dev.azure.com
+
+open the link above.. create microsoft account and log in to azure devops.. it asks for creation of the project, create the project 
+now, you have to go to the organization settings which is at bottom left 
+you can find projects there, you can add users etc..
+
+now we have to add users.. there are two types of users in azure.. MSA & AAD ... MSA is for individual and AAD is for organizational level
+in the organization settings, you can add new user and give necessary permissions for him 
+
+
